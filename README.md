@@ -87,7 +87,7 @@ would be invisible from the other.
 
 Libraries consuming this package must therefore declare it as a
 **peerDependency**, never a dependency — as
-[`react-data-form`](https://github.com/SalvadorCardona/react-data-form) does,
+[`react-data-form`](https://github.com/hermez-agency/react-data-form) does,
 registering its forms alongside the application's own resources.
 
 ## Development
@@ -103,3 +103,7 @@ pnpm build
 ## License
 
 MIT
+
+---
+
+A Hermez product — [hermez.dev](https://hermez.dev).
