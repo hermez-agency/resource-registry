@@ -6,8 +6,10 @@ import {
   JsonLdIriContainerInterface,
 } from "jsonld-item"
 
+// No prototype: an IRI such as "__proto__" or "constructor" coming from an
+// API must stay a plain key, never reach Object.prototype.
 export const resourceRegistered: JsonLdIriContainerInterface<BaseJsonLdItemInterface> =
-  {}
+  Object.create(null)
 
 const addResource = (metaData: BaseJsonLdItemInterface) => {
   resourceRegistered[metaData["@id"]] = metaData

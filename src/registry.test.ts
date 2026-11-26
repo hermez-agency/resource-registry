@@ -35,6 +35,25 @@ describe("createResource / getResource", () => {
     expect(getResource<{ name: string }>("articles")?.name).toBe("Second")
     expect(Object.keys(resourceRegistered)).toHaveLength(1)
   })
+
+  it('stores "__proto__" as a plain IRI without touching any prototype', () => {
+    const registryPrototype = Object.getPrototypeOf(resourceRegistered)
+
+    createResource("__proto__", { "@type": "Article", polluted: true })
+
+    expect(Object.getPrototypeOf(resourceRegistered)).toBe(registryPrototype)
+    expect(({} as Record<string, unknown>).polluted).toBeUndefined()
+    expect(Object.prototype).not.toHaveProperty("polluted")
+    expect(getResource("__proto__")).toMatchObject({
+      "@id": "__proto__",
+      "@type": "Article",
+    })
+    expect(getResource("articles")).toBeUndefined()
+  })
+
+  it('returns undefined for "constructor" when nothing is registered under it', () => {
+    expect(getResource("constructor")).toBeUndefined()
+  })
 })
 
 describe("searchMetaData", () => {
