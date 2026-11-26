@@ -5,6 +5,11 @@ import {
   JsonLdIriAble,
   JsonLdIriContainerInterface,
 } from "jsonld-item"
+import { warnOnDuplicateCopy } from "@/duplicateCopy"
+
+// Runs here, beside the singleton it guards, so that `sideEffects: false`
+// never lets a bundler drop it while the registry is in use.
+warnOnDuplicateCopy()
 
 // No prototype: an IRI such as "__proto__" or "constructor" coming from an
 // API must stay a plain key, never reach Object.prototype.
